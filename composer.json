@@ -1,0 +1,20 @@
+{
+    "name": "ice/mailerclient-bundle",
+    "type": "symfony-bundle",
+    "description": "Client for the ICE Mailer API",
+    "licence": "MIT",
+    "authors": [
+        {
+            "name": "Rob Hogan",            "email": "rob.hogan@admin.cam.ac.uk"
+        }
+    ],
+    "require": {
+        "misd/guzzle-bundle": "@stable"
+    },
+    "autoload": {
+        "psr-0": {
+            "Ice\\MailerClientBundle": ""
+        }
+    },
+    "target-dir": "Ice/MailerClientBundle"
+}
