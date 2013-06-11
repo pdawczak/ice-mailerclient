@@ -1,16 +1,15 @@
 {
     "name": "ICE Mailer",
     "operations": {
-        "CreateTransaction": {
+        "PostMail": {
             "httpMethod": "POST",
-            "uri": "transactions",
-            "responseClass": "Ice\\MercuryClientBundle\\Entity\\Transaction",
+            "uri": "mail",
             "parameters": {
-                "transaction" : {
+                "mailRequest" : {
                     "location":"body",
                     "sentAs":"json",
                     "required":true,
-                    "instanceOf": "Ice\\MercuryClientBundle\\Entity\\Transaction"
+                    "instanceOf": "Ice\\MailerClientBundle\\Entity\\MailRequest"
                 }
             }
         }

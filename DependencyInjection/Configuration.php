@@ -18,9 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-
-        //Deliberately use the same config as the Janus client, because for now this occupies the same server
-        $rootNode = $treeBuilder->root('ice_janus_client');
+        $rootNode = $treeBuilder->root('ice_mailer_client');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
