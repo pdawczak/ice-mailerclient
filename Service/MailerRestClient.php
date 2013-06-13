@@ -2,6 +2,7 @@
 namespace Ice\MailerClientBundle\Service;
 
 use Guzzle\Service\Client;
+use Guzzle\Plugin\Async\AsyncPlugin;
 
 class MailerRestClient extends Client
 {
@@ -21,6 +22,7 @@ class MailerRestClient extends Client
                 'CURLOPT_USERPWD' => sprintf("%s:%s", $username, $password),
             ),
         ));
+        $this->addSubscriber(new AsyncPlugin());
         $this->setDefaultHeaders(array(
             'Accept' => 'application/json',
         ));
