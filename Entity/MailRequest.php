@@ -15,6 +15,11 @@ class MailRequest
     private $templateName;
 
     /**
+     * @var array
+     */
+    private $vars;
+
+    /**
      * @param mixed $templateName
      * @return MailRequest
      */
@@ -50,5 +55,23 @@ class MailRequest
     public function getTo()
     {
         return $this->to;
+    }
+
+    /**
+     * @param array $vars
+     * @return MailRequest
+     */
+    public function setVars(array $vars)
+    {
+        $this->vars = $vars;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getVars()
+    {
+        return $this->vars;
     }
 }

@@ -38,11 +38,12 @@ class MailerClient
      *
      * @param array|string $to
      * @param string $templateName
+     * @param array $vars
      */
-    public function postMail($to, $templateName)
+    public function postMail($to, $templateName, array $vars = array())
     {
         $this->getRestClient()->getCommand('PostMail', array(
-            'mailRequest'=>(new MailRequest())->setTemplateName($templateName)->setTo($to)
+            'mailRequest'=>(new MailRequest())->setTemplateName($templateName)->setTo($to)->setVars($vars)
         ))->execute();
     }
 }

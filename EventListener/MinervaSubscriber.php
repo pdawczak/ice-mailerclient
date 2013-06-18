@@ -45,8 +45,19 @@ class MinervaSubscriber implements EventSubscriberInterface
      */
     public function postConfirmBooking(BookingEvent $event)
     {
-        $recipient = $event->getBooking()->getAcademicInformation()->getUsername();
-        $this->getMailerClient()->postMail($recipient, 'BookingConfirmation');
+        $booking = $event->getBooking();
+        $academicInformation = $booking->getAcademicInformation();
+        $recipient = $academicInformation->getUsername();
+        $this->getMailerClient()->postMail($recipient, 'BookingConfirmation', [
+            'booking' => [
+                'bookingReference'=>$booking->getSuborderGroup(),
+                'orderReference'=>$booking->getOrderReference(),
+            ],
+            'academicInformation' => [
+                'iceId'=>$academicInformation->getUsername(),
+                'courseId'=>$academicInformation->getCourseId(),
+            ]
+        ]);
     }
 
     /**
