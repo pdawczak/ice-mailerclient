@@ -36,7 +36,7 @@ class MinervaSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            MinervaEvents::POST_CONFIRM_BOOKING => 'postConfirmBooking'
+            'minerva.post_confirm_booking' => 'postConfirmBooking'
         ];
     }
 

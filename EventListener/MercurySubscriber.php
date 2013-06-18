@@ -36,7 +36,7 @@ class MercurySubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            MercuryEvents::POST_CONFIRM_ORDER => 'postConfirmOrder'
+            'mercury.post_confirm_order' => 'postConfirmOrder'
         ];
     }
 
