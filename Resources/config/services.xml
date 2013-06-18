@@ -49,5 +49,15 @@
             </call>
         </service>
 
+        <service
+                id="mailer.mercury_subscriber"
+                class="Ice\MailerClientBundle\EventListener\MercurySubscriber"
+                public="true">
+            <tag name="kernel.event_subscriber" />
+            <call method="setMailerClient">
+                <argument type="service" id="mailer.client"/>
+            </call>
+        </service>
+
     </services>
 </container>
