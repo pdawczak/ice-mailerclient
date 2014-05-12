@@ -71,11 +71,6 @@ class VeritasSubscriber implements EventSubscriberInterface
                 'courseId' => intval($application->getCourseId())
             )
         );
-        $this->getMailerClient()->postMail(
-            $application->getUsername(),
-            "CourseApplication",
-            $params
-        );
 
         $this->getMailerClient()->postMail($application->getUsername(), 'CourseApplication', $params);
     }
