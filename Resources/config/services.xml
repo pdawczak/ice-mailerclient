@@ -59,5 +59,14 @@
             </call>
         </service>
 
+        <service
+                id="mailer.veritas_subscriber"
+                class="Ice\MailerClientBundle\EventListener\VeritasSubscriber"
+                public="true">
+            <tag name="kernel.event_subscriber" />
+            <call method="setMailerClient">
+                <argument type="service" id="mailer.client"/>
+            </call>
+        </service>
     </services>
 </container>
