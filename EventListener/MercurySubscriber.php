@@ -3,6 +3,7 @@ namespace Ice\MailerClientBundle\EventListener;
 
 use Ice\MercuryBundle\Event\OrderEvent;
 use Ice\MercuryBundle\Event\MercuryEvents;
+use Ice\MercuryBundle\Event\TimelyPaymentNotificationEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Ice\MailerClientBundle\Service\MailerClient;
 
@@ -36,7 +37,8 @@ class MercurySubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'mercury.post_confirm_order' => 'postConfirmOrder'
+            'mercury.post_confirm_order'    => 'postConfirmOrder',
+            'mercury.notify_timely_payment' => 'postTimelyPaymentNotification'
         ];
     }
 
@@ -50,6 +52,28 @@ class MercurySubscriber implements EventSubscriberInterface
         $this->getMailerClient()->postMail($recipient, 'OrderConfirmation', [
             'orderReference' => $order->getReference()
         ]);
+    }
+
+    /**
+     * @param TimelyPaymentNotificationEvent $event
+     */
+    public function postTimelyPaymentNotification(TimelyPaymentNotificationEvent $event)
+    {
+        $vars = [
+            'cardholder'         => $event->getPaymentNotification()->getCardholderFullName(),
+            'maskedPan'          => $event->getPaymentNotification()->getMaskedPan(),
+            'amount'             => $event->getPaymentNotification()->getAmountFormatted(),
+            'customerTitle'      => $event->getPaymentNotification()->getCustomerTitle(),
+            'customerFirstNames' => $event->getPaymentNotification()->getCustomerFirstNames(),
+            'customerLastNames'  => $event->getPaymentNotification()->getCustomerLastNames(),
+            'at'                 => $event->getPaymentCollectionDate()
+        ];
+
+        $this->getMailerClient()->postMail(
+            $event->getPaymentNotification()->getCustomerEmail(),
+            'TimelyPaymentNotification',
+            $vars
+        );
     }
 
     /**
